@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" spacing="24" nodeOrientation="RIGHT_TO_LEFT" xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml" fx:controller="com.taskmanager.controller.FocusModeController"
+      styleClass="focus-container">
+    <padding><Insets top="40" bottom="40" left="40" right="40"/></padding>
+
+    <Label text="🎯 وضع التركيز" styleClass="focus-header"/>
+    <Label fx:id="taskTitleLabel" text="اسم المهمة" styleClass="focus-task-title" wrapText="true"/>
+    <Label fx:id="timerLabel" text="00:00:00" styleClass="focus-timer"/>
+    <Label fx:id="progressLabel" text="0 / 0 دقيقة" styleClass="focus-progress"/>
+
+    <HBox spacing="16" alignment="CENTER">
+        <Button fx:id="pauseResumeButton" text="⏸ إيقاف مؤقت" onAction="#handlePauseResume" styleClass="primary-button"/>
+        <Button text="✅ إنجاز المهمة" onAction="#handleComplete"/>
+        <Button text="🚪 خروج من وضع التركيز" onAction="#handleExit"/>
+    </HBox>
+</VBox>

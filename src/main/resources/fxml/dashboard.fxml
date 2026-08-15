@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane fitToWidth="true" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.taskmanager.controller.DashboardController">
+    <VBox spacing="20" styleClass="dashboard-container">
+        <padding><Insets top="20" bottom="20" left="20" right="20"/></padding>
+
+        <HBox spacing="20">
+            <VBox styleClass="stat-card" HBox.hgrow="ALWAYS">
+                <Label text="نسبة إنجاز اليوم" styleClass="stat-title"/>
+                <Label fx:id="todayCompletionLabel" text="0%" styleClass="stat-value"/>
+            </VBox>
+            <VBox styleClass="stat-card" HBox.hgrow="ALWAYS">
+                <Label text="نسبة إنجاز الأسبوع" styleClass="stat-title"/>
+                <Label fx:id="weekCompletionLabel" text="0%" styleClass="stat-value"/>
+            </VBox>
+            <VBox styleClass="stat-card" HBox.hgrow="ALWAYS">
+                <Label text="الوقت الضائع" styleClass="stat-title"/>
+                <Label fx:id="wastedTimeLabel" text="0 د" styleClass="stat-value"/>
+            </VBox>
+            <VBox styleClass="stat-card" HBox.hgrow="ALWAYS">
+                <Label text="أكثر تصنيف استهلاكًا للوقت" styleClass="stat-title"/>
+                <Label fx:id="topCategoryLabel" text="--" styleClass="stat-value"/>
+            </VBox>
+        </HBox>
+
+        <HBox spacing="20">
+            <PieChart fx:id="categoryPieChart" title="توزيع الوقت حسب التصنيف" HBox.hgrow="ALWAYS" prefHeight="320"/>
+            <BarChart fx:id="productivityTrendChart" title="اتجاه الإنتاجية (آخر 7 أيام)" HBox.hgrow="ALWAYS" prefHeight="320">
+                <xAxis>
+                    <CategoryAxis fx:id="trendXAxis" label="اليوم"/>
+                </xAxis>
+                <yAxis>
+                    <NumberAxis fx:id="trendYAxis" label="نسبة الإنجاز %"/>
+                </yAxis>
+            </BarChart>
+        </HBox>
+
+        <BarChart fx:id="productiveHoursChart" title="أكثر ساعات اليوم إنتاجية" prefHeight="300">
+            <xAxis>
+                <CategoryAxis fx:id="hoursXAxis" label="الساعة"/>
+            </xAxis>
+            <yAxis>
+                <NumberAxis fx:id="hoursYAxis" label="عدد الجلسات"/>
+            </yAxis>
+        </BarChart>
+
+        <Button text="🔄 تحديث الإحصائيات" onAction="#refreshStatistics"/>
+    </VBox>
+</ScrollPane>

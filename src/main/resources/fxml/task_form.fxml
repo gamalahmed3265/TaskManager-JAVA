@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="14" nodeOrientation="RIGHT_TO_LEFT" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.taskmanager.controller.TaskFormController" styleClass="task-form">
+    <padding><Insets top="20" bottom="20" left="20" right="20"/></padding>
+
+    <Label text="عنوان المهمة"/>
+    <TextField fx:id="titleField" promptText="اكتب عنوان المهمة"/>
+
+    <Label text="الوصف"/>
+    <TextArea fx:id="descriptionField" promptText="تفاصيل إضافية (اختياري)" prefRowCount="3" wrapText="true"/>
+
+    <HBox spacing="14">
+        <VBox spacing="6" HBox.hgrow="ALWAYS">
+            <Label text="الأولوية"/>
+            <ComboBox fx:id="priorityCombo" maxWidth="Infinity"/>
+        </VBox>
+        <VBox spacing="6" HBox.hgrow="ALWAYS">
+            <Label text="التصنيف"/>
+            <ComboBox fx:id="categoryCombo" maxWidth="Infinity"/>
+        </VBox>
+    </HBox>
+
+    <HBox spacing="14">
+        <VBox spacing="6" HBox.hgrow="ALWAYS">
+            <Label text="الموعد النهائي"/>
+            <DatePicker fx:id="deadlineDatePicker" maxWidth="Infinity"/>
+        </VBox>
+        <VBox spacing="6" HBox.hgrow="ALWAYS">
+            <Label text="وقت الموعد النهائي"/>
+            <TextField fx:id="deadlineTimeField" promptText="HH:mm مثال 18:00"/>
+        </VBox>
+    </HBox>
+
+    <Label text="المدة المقدّرة (بالدقائق)"/>
+    <Spinner fx:id="estimatedMinutesSpinner" editable="true"/>
+
+    <Label fx:id="errorLabel" styleClass="error-label" visible="false" managed="false"/>
+
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Pane HBox.hgrow="ALWAYS"/>
+        <Button text="إلغاء" onAction="#handleCancel"/>
+        <Button fx:id="saveButton" text="حفظ" onAction="#handleSave" styleClass="primary-button"/>
+    </HBox>
+</VBox>

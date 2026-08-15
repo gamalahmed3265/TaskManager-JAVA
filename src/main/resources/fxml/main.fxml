@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.cell.*?>
+
+<BorderPane fx:id="rootPane" nodeOrientation="RIGHT_TO_LEFT" xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml" fx:controller="com.taskmanager.controller.MainController"
+            styleClass="root-pane">
+
+    <top>
+        <VBox styleClass="top-bar">
+            <ToolBar styleClass="toolbar">
+                <Label text="📋 إدارة المهام اليومية" styleClass="app-title"/>
+                <Pane HBox.hgrow="ALWAYS" prefWidth="20"/>
+                <Button fx:id="addTaskButton" text="➕ مهمة جديدة" onAction="#handleAddTask" styleClass="primary-button"/>
+                <Button fx:id="smartSuggestButton" text="✨ اقتراح ذكي" onAction="#handleSmartSuggest"/>
+                <Button fx:id="autoScheduleButton" text="🗓 جدولة تلقائية" onAction="#handleAutoSchedule"/>
+                <Button fx:id="focusModeButton" text="🎯 وضع التركيز" onAction="#handleFocusMode"/>
+                <Button fx:id="exportButton" text="📤 تصدير تقرير" onAction="#handleExport"/>
+                <ToggleButton fx:id="themeToggle" text="🌙 الوضع الداكن" onAction="#handleThemeToggle"/>
+            </ToolBar>
+            <HBox styleClass="status-bar" spacing="20">
+                <padding><Insets top="6" bottom="6" left="14" right="14"/></padding>
+                <Label fx:id="pointsLabel" text="النقاط: 0" styleClass="status-chip"/>
+                <Label fx:id="levelLabel" text="المستوى: 1" styleClass="status-chip"/>
+                <Label fx:id="badgeLabel" text="🌱 مبتدئ" styleClass="status-chip"/>
+                <Pane HBox.hgrow="ALWAYS"/>
+                <Label fx:id="completionLabel" text="نسبة إنجاز اليوم: 0%" styleClass="status-chip"/>
+            </HBox>
+        </VBox>
+    </top>
+
+    <left>
+        <VBox styleClass="sidebar" prefWidth="220" spacing="12">
+            <padding><Insets top="16" bottom="16" left="14" right="14"/></padding>
+            <Label text="التصفية" styleClass="sidebar-title"/>
+            <TextField fx:id="searchField" promptText="ابحث عن مهمة..." onKeyReleased="#handleSearch"/>
+            <ComboBox fx:id="categoryFilter" promptText="كل التصنيفات" maxWidth="Infinity"/>
+            <ComboBox fx:id="priorityFilter" promptText="كل الأولويات" maxWidth="Infinity"/>
+            <ComboBox fx:id="statusFilter" promptText="كل الحالات" maxWidth="Infinity"/>
+            <Separator/>
+            <Label text="المهام المؤجلة كثيرًا" styleClass="sidebar-title"/>
+            <ListView fx:id="frequentlyPostponedList" prefHeight="150"/>
+            <Separator/>
+            <Label fx:id="bestHourLabel" text="أفضل وقت لإنتاجيتك: --" wrapText="true" styleClass="hint-label"/>
+        </VBox>
+    </left>
+
+    <center>
+        <TabPane fx:id="mainTabPane" tabClosingPolicy="UNAVAILABLE">
+            <Tab text="🗓 جدول اليوم">
+                <TableView fx:id="taskTable" editable="false">
+                    <columns>
+                        <TableColumn fx:id="timeColumn" text="الوقت" prefWidth="90"/>
+                        <TableColumn fx:id="titleColumn" text="العنوان" prefWidth="220"/>
+                        <TableColumn fx:id="categoryColumn" text="التصنيف" prefWidth="100"/>
+                        <TableColumn fx:id="priorityColumn" text="الأولوية" prefWidth="100"/>
+                        <TableColumn fx:id="estimatedColumn" text="مقدّر" prefWidth="80"/>
+                        <TableColumn fx:id="actualColumn" text="فعلي" prefWidth="80"/>
+                        <TableColumn fx:id="statusColumn" text="الحالة" prefWidth="110"/>
+                        <TableColumn fx:id="timerColumn" text="المؤقت" prefWidth="180"/>
+                        <TableColumn fx:id="actionsColumn" text="إجراءات" prefWidth="160"/>
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
+                </TableView>
+            </Tab>
+            <Tab text="📊 لوحة الإحصائيات">
+                <fx:include fx:id="dashboard" source="dashboard.fxml"/>
+            </Tab>
+        </TabPane>
+    </center>
+</BorderPane>
