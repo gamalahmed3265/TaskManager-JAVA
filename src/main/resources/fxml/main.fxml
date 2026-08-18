@@ -12,14 +12,14 @@
     <top>
         <VBox styleClass="top-bar">
             <ToolBar styleClass="toolbar">
-                <Label text="📋 إدارة المهام اليومية" styleClass="app-title"/>
+                <Label text="إدارة المهام اليومية" styleClass="app-title"/>
                 <Pane HBox.hgrow="ALWAYS" prefWidth="20"/>
-                <Button fx:id="addTaskButton" text="➕ مهمة جديدة" onAction="#handleAddTask" styleClass="primary-button"/>
-                <Button fx:id="smartSuggestButton" text="✨ اقتراح ذكي" onAction="#handleSmartSuggest"/>
-                <Button fx:id="autoScheduleButton" text="🗓 جدولة تلقائية" onAction="#handleAutoSchedule"/>
-                <Button fx:id="focusModeButton" text="🎯 وضع التركيز" onAction="#handleFocusMode"/>
-                <Button fx:id="exportButton" text="📤 تصدير تقرير" onAction="#handleExport"/>
-                <ToggleButton fx:id="themeToggle" text="🌙 الوضع الداكن" onAction="#handleThemeToggle"/>
+                <Button fx:id="addTaskButton" text="مهمة جديدة" onAction="#handleAddTask" styleClass="primary-button"/>
+                <Button fx:id="smartSuggestButton" text="اقتراح ذكي" onAction="#handleSmartSuggest"/>
+                <Button fx:id="autoScheduleButton" text="جدولة تلقائية" onAction="#handleAutoSchedule"/>
+                <Button fx:id="focusModeButton" text="وضع التركيز" onAction="#handleFocusMode"/>
+                <Button fx:id="exportButton" text="تصدير تقرير" onAction="#handleExport"/>
+                <ToggleButton fx:id="themeToggle" text="الوضع الداكن" onAction="#handleThemeToggle"/>
             </ToolBar>
             <HBox styleClass="status-bar" spacing="20">
                 <padding><Insets top="6" bottom="6" left="14" right="14"/></padding>
@@ -50,23 +50,10 @@
 
     <center>
         <TabPane fx:id="mainTabPane" tabClosingPolicy="UNAVAILABLE">
-            <Tab text="🗓 جدول اليوم">
-                <TableView fx:id="taskTable" editable="false">
-                    <columns>
-                        <TableColumn fx:id="timeColumn" text="الوقت" prefWidth="90"/>
-                        <TableColumn fx:id="titleColumn" text="العنوان" prefWidth="220"/>
-                        <TableColumn fx:id="categoryColumn" text="التصنيف" prefWidth="100"/>
-                        <TableColumn fx:id="priorityColumn" text="الأولوية" prefWidth="100"/>
-                        <TableColumn fx:id="estimatedColumn" text="مقدّر" prefWidth="80"/>
-                        <TableColumn fx:id="actualColumn" text="فعلي" prefWidth="80"/>
-                        <TableColumn fx:id="statusColumn" text="الحالة" prefWidth="110"/>
-                        <TableColumn fx:id="timerColumn" text="المؤقت" prefWidth="180"/>
-                        <TableColumn fx:id="actionsColumn" text="إجراءات" prefWidth="160"/>
-                    </columns>
-                    <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
-                    </columnResizePolicy>
-                </TableView>
+            <Tab text="📋 لوحة المهام (كانبان)">
+                <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="dashboard-container">
+                    <HBox fx:id="kanbanContainer" spacing="20" alignment="TOP_CENTER" styleClass="kanban-board"/>
+                </ScrollPane>
             </Tab>
             <Tab text="📊 لوحة الإحصائيات">
                 <fx:include fx:id="dashboard" source="dashboard.fxml"/>

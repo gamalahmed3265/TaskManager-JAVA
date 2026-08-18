@@ -30,7 +30,7 @@ public class FocusModeController {
         this.timeTrackingService = timeTrackingService;
         this.onExit = onExit;
         taskTitleLabel.setText(task.getTitle());
-        elapsedSecondsAtStart = task.getActualMinutes() * 60L;
+        elapsedSecondsAtStart = task.getActualSeconds();
 
         if (!timeTrackingService.isRunning(task.getId())) {
             timeTrackingService.start(task);
@@ -46,7 +46,7 @@ public class FocusModeController {
     }
 
     private void updateDisplay() {
-        long sessionSeconds = timeTrackingService.currentSessionMinutes(task.getId()) * 60L;
+        long sessionSeconds = timeTrackingService.currentSessionSeconds(task.getId());
         long totalSeconds = elapsedSecondsAtStart + sessionSeconds;
         long h = totalSeconds / 3600;
         long m = (totalSeconds % 3600) / 60;

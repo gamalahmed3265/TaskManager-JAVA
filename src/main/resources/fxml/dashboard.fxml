@@ -50,6 +50,10 @@
             </yAxis>
         </BarChart>
 
+        <Label text="الجدول الزمني لليوم" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
+        <ListView fx:id="dailyTimelineList" prefHeight="250" style="-fx-background-radius: 10; -fx-border-radius: 10;"/>
+
         <Button text="🔄 تحديث الإحصائيات" onAction="#refreshStatistics"/>
     </VBox>
 </ScrollPane>
+
