@@ -65,7 +65,7 @@ public class DatabaseManager {
                 deadline TEXT,
                 scheduled_start TEXT,
                 estimated_minutes INTEGER NOT NULL DEFAULT 30,
-                actual_minutes INTEGER NOT NULL DEFAULT 0,
+                actual_seconds INTEGER NOT NULL DEFAULT 0,
                 status TEXT NOT NULL DEFAULT 'PENDING',
                 postpone_count INTEGER NOT NULL DEFAULT 0,
                 points INTEGER NOT NULL DEFAULT 0,

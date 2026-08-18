@@ -10,6 +10,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -24,6 +25,7 @@ public class DashboardController {
     @FXML private PieChart categoryPieChart;
     @FXML private BarChart<String, Number> productivityTrendChart;
     @FXML private BarChart<String, Number> productiveHoursChart;
+    @FXML private ListView<String> dailyTimelineList;
 
     private final TaskService taskService = new TaskService();
     private final StatisticsService statisticsService = new StatisticsService();
@@ -77,5 +79,11 @@ public class DashboardController {
         hours.forEach((hour, count) -> hourSeries.getData().add(
                 new XYChart.Data<>(hour + ":00", count)));
         productiveHoursChart.getData().setAll(hourSeries);
+
+        // الجدول الزمني لليوم
+        if (dailyTimelineList != null) {
+            List<String> timeline = statisticsService.getDailyTimelineStrings(allTasks);
+            dailyTimelineList.setItems(FXCollections.observableArrayList(timeline));
+        }
     }
 }
