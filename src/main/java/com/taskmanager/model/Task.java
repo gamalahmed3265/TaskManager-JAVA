@@ -17,7 +17,7 @@ public class Task {
     private final ObjectProperty<LocalDateTime> deadline = new SimpleObjectProperty<>(this, "deadline");
     private final ObjectProperty<LocalDateTime> scheduledStart = new SimpleObjectProperty<>(this, "scheduledStart");
     private final IntegerProperty estimatedMinutes = new SimpleIntegerProperty(this, "estimatedMinutes", 30);
-    private final IntegerProperty actualMinutes = new SimpleIntegerProperty(this, "actualMinutes", 0);
+    private final IntegerProperty actualSeconds = new SimpleIntegerProperty(this, "actualSeconds", 0);
     private final ObjectProperty<TaskStatus> status = new SimpleObjectProperty<>(this, "status", TaskStatus.PENDING);
     private final IntegerProperty postponeCount = new SimpleIntegerProperty(this, "postponeCount", 0);
     private final IntegerProperty points = new SimpleIntegerProperty(this, "points", 0);
@@ -76,10 +76,10 @@ public class Task {
     public void setEstimatedMinutes(int value) { estimatedMinutes.set(value); }
     public IntegerProperty estimatedMinutesProperty() { return estimatedMinutes; }
 
-    // actualMinutes
-    public int getActualMinutes() { return actualMinutes.get(); }
-    public void setActualMinutes(int value) { actualMinutes.set(value); }
-    public IntegerProperty actualMinutesProperty() { return actualMinutes; }
+    // actualSeconds
+    public int getActualSeconds() { return actualSeconds.get(); }
+    public void setActualSeconds(int value) { actualSeconds.set(value); }
+    public IntegerProperty actualSecondsProperty() { return actualSeconds; }
 
     // status
     public TaskStatus getStatus() { return status.get(); }
@@ -106,10 +106,9 @@ public class Task {
     public void setCompletedAt(LocalDateTime value) { completedAt.set(value); }
     public ObjectProperty<LocalDateTime> completedAtProperty() { return completedAt; }
 
-    /** نسبة الوقت الفعلي إلى المقدّر (لأغراض التقارير) */
     public double getTimeAccuracyRatio() {
         if (getEstimatedMinutes() <= 0) return 0;
-        return (double) getActualMinutes() / getEstimatedMinutes();
+        return (double) getActualSeconds() / (getEstimatedMinutes() * 60.0);
     }
 
     public boolean isOverdue() {
@@ -123,3 +122,4 @@ public class Task {
         return getTitle();
     }
 }
+

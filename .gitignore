@@ -2,10 +2,11 @@ target/
 *.class
 .idea/
 *.iml
-.vscode/
 
 # Local build and maven folders
 .maven/
 .m2repo/
 app-output/
 dependency-reduced-pom.xml
+config.bat
+node_modules

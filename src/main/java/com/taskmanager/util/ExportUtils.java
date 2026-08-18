@@ -24,14 +24,14 @@ public class ExportUtils {
 
     public static void exportToCsv(List<Task> tasks, Path outputPath) throws IOException {
         StringBuilder sb = new StringBuilder();
-        sb.append("العنوان,التصنيف,الأولوية,الحالة,الوقت المقدر (د),الوقت الفعلي (د),الموعد النهائي\n");
+        sb.append("العنوان,التصنيف,الأولوية,الحالة,الوقت المقدر (د),الوقت الفعلي (ث),الموعد النهائي\n");
         for (Task t : tasks) {
             sb.append(csvEscape(t.getTitle())).append(',')
               .append(t.getCategory().getDisplayName()).append(',')
               .append(t.getPriority().getDisplayName()).append(',')
               .append(t.getStatus().getDisplayName()).append(',')
               .append(t.getEstimatedMinutes()).append(',')
-              .append(t.getActualMinutes()).append(',')
+              .append(t.getActualSeconds()).append(',')
               .append(DateTimeUtils.formatDateTime(t.getDeadline()))
               .append('\n');
         }
@@ -41,7 +41,7 @@ public class ExportUtils {
     public static void exportToExcel(List<Task> tasks, Path outputPath) throws IOException {
         try (Workbook workbook = new XSSFWorkbook()) {
             Sheet sheet = workbook.createSheet("تقرير الإنتاجية");
-            String[] headers = {"العنوان", "التصنيف", "الأولوية", "الحالة", "الوقت المقدر (د)", "الوقت الفعلي (د)", "الموعد النهائي"};
+            String[] headers = {"العنوان", "التصنيف", "الأولوية", "الحالة", "الوقت المقدر (د)", "الوقت الفعلي (ث)", "الموعد النهائي"};
             Row headerRow = sheet.createRow(0);
             for (int i = 0; i < headers.length; i++) {
                 headerRow.createCell(i).setCellValue(headers[i]);
@@ -54,7 +54,7 @@ public class ExportUtils {
                 row.createCell(2).setCellValue(t.getPriority().getDisplayName());
                 row.createCell(3).setCellValue(t.getStatus().getDisplayName());
                 row.createCell(4).setCellValue(t.getEstimatedMinutes());
-                row.createCell(5).setCellValue(t.getActualMinutes());
+                row.createCell(5).setCellValue(t.getActualSeconds());
                 row.createCell(6).setCellValue(DateTimeUtils.formatDateTime(t.getDeadline()));
             }
             for (int i = 0; i < headers.length; i++) sheet.autoSizeColumn(i);
@@ -76,7 +76,7 @@ public class ExportUtils {
             table.addHeaderCell("الأولوية");
             table.addHeaderCell("الحالة");
             table.addHeaderCell("مقدّر (د)");
-            table.addHeaderCell("فعلي (د)");
+            table.addHeaderCell("فعلي (ث)");
 
             for (Task t : tasks) {
                 table.addCell(t.getTitle());
@@ -84,7 +84,7 @@ public class ExportUtils {
                 table.addCell(t.getPriority().getDisplayName());
                 table.addCell(t.getStatus().getDisplayName());
                 table.addCell(String.valueOf(t.getEstimatedMinutes()));
-                table.addCell(String.valueOf(t.getActualMinutes()));
+                table.addCell(String.valueOf(t.getActualSeconds()));
             }
             document.add(table);
         }

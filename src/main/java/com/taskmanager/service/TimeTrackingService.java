@@ -36,8 +36,8 @@ public class TimeTrackingService {
         if (entry == null) return;
         LocalDateTime end = LocalDateTime.now();
         timeEntryDAO.endEntry(entry.getId(), end);
-        long minutes = java.time.Duration.between(entry.getStartTime(), end).toMinutes();
-        task.setActualMinutes((int) (task.getActualMinutes() + minutes));
+        long seconds = java.time.Duration.between(entry.getStartTime(), end).getSeconds();
+        task.setActualSeconds((int) (task.getActualSeconds() + seconds));
         taskDAO.update(task);
     }
 
@@ -49,10 +49,15 @@ public class TimeTrackingService {
         return activeEntries.containsKey(taskId);
     }
 
-    /** إجمالي الدقائق المنقضية في الجلسة الحالية الجارية (للعرض الحي في الواجهة) */
     public long currentSessionMinutes(int taskId) {
         TimeEntry entry = activeEntries.get(taskId);
         if (entry == null) return 0;
         return java.time.Duration.between(entry.getStartTime(), LocalDateTime.now()).toMinutes();
+    }
+
+    public long currentSessionSeconds(int taskId) {
+        TimeEntry entry = activeEntries.get(taskId);
+        if (entry == null) return 0;
+        return java.time.Duration.between(entry.getStartTime(), LocalDateTime.now()).getSeconds();
     }
 }

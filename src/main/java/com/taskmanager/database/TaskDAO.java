@@ -27,7 +27,7 @@ public class TaskDAO {
     public Task insert(Task task) {
         String sql = """
             INSERT INTO tasks (title, description, priority, category, deadline, scheduled_start,
-                estimated_minutes, actual_minutes, status, postpone_count, points, created_at, completed_at)
+                estimated_minutes, actual_seconds, status, postpone_count, points, created_at, completed_at)
             VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)
             """;
         try (PreparedStatement ps = conn().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -48,7 +48,7 @@ public class TaskDAO {
     public void update(Task task) {
         String sql = """
             UPDATE tasks SET title=?, description=?, priority=?, category=?, deadline=?, scheduled_start=?,
-                estimated_minutes=?, actual_minutes=?, status=?, postpone_count=?, points=?, created_at=?, completed_at=?
+                estimated_minutes=?, actual_seconds=?, status=?, postpone_count=?, points=?, created_at=?, completed_at=?
             WHERE id=?
             """;
         try (PreparedStatement ps = conn().prepareStatement(sql)) {
@@ -113,7 +113,7 @@ public class TaskDAO {
         ps.setString(5, task.getDeadline() != null ? task.getDeadline().toString() : null);
         ps.setString(6, task.getScheduledStart() != null ? task.getScheduledStart().toString() : null);
         ps.setInt(7, task.getEstimatedMinutes());
-        ps.setInt(8, task.getActualMinutes());
+        ps.setInt(8, task.getActualSeconds());
         ps.setString(9, task.getStatus().name());
         ps.setInt(10, task.getPostponeCount());
         ps.setInt(11, task.getPoints());
@@ -131,7 +131,7 @@ public class TaskDAO {
         t.setDeadline(parse(rs.getString("deadline")));
         t.setScheduledStart(parse(rs.getString("scheduled_start")));
         t.setEstimatedMinutes(rs.getInt("estimated_minutes"));
-        t.setActualMinutes(rs.getInt("actual_minutes"));
+        t.setActualSeconds(rs.getInt("actual_seconds"));
         t.setStatus(TaskStatus.valueOf(rs.getString("status")));
         t.setPostponeCount(rs.getInt("postpone_count"));
         t.setPoints(rs.getInt("points"));
